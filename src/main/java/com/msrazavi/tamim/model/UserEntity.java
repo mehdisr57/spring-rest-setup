@@ -1,10 +1,10 @@
 package com.msrazavi.tamim.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
@@ -55,9 +55,10 @@ public class UserEntity {
         this.password = password;
     }
 
+    @JsonBackReference
     @ManyToMany
     @JoinTable(name = "TBL_USER_ROLE",
-            joinColumns = @JoinColumn(name = "PK_USER_ID"),
+            joinColumns = @JoinColumn(name = "FK_USER_ID"),
             inverseJoinColumns = @JoinColumn(name = "FK_ROLE_ID"))
     public Set<RoleEntity> getRoles() {
         return roles;
@@ -76,6 +77,7 @@ public class UserEntity {
         this.passwordConfirm = passwordConfirm;
     }
 
+    @JsonManagedReference
     @OneToOne(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
     public UserProfileEntity getUserProfile() {
         return userProfile;

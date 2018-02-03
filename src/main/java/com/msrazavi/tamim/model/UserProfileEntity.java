@@ -1,5 +1,9 @@
 package com.msrazavi.tamim.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
 import javax.persistence.*;
 
 /**
@@ -27,6 +31,7 @@ public class UserProfileEntity {
         this.id = id;
     }
 
+    @NotEmpty(message = "first name is mandatory")
     @Column(name = "FIRST_NAME", length = 50)
     public String getFirstName() {
         return firstName;
@@ -36,6 +41,7 @@ public class UserProfileEntity {
         this.firstName = firstName;
     }
 
+    @NotEmpty(message = "last name is mandatory")
     @Column(name = "LAST_NAME", length = 100)
     public String getLastName() {
         return lastName;
@@ -45,6 +51,7 @@ public class UserProfileEntity {
         this.lastName = lastName;
     }
 
+    @Email
     @Column(name = "EMAIL")
     public String getEmail() {
         return email;
@@ -54,6 +61,7 @@ public class UserProfileEntity {
         this.email = email;
     }
 
+    @JsonBackReference
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
     public UserEntity getUser() {

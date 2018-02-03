@@ -1,5 +1,7 @@
 package com.msrazavi.tamim.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -31,6 +33,7 @@ public class RoleEntity {
         this.name = name;
     }
 
+    @JsonManagedReference
     @ManyToMany(mappedBy = "roles")
     public Set<UserEntity> getUsers() {
         return users;

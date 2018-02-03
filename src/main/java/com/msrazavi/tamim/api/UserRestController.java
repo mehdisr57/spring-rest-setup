@@ -1,4 +1,4 @@
-package com.msrazavi.tamim.controller;
+package com.msrazavi.tamim.api;
 
 import com.msrazavi.tamim.model.UserEntity;
 import com.msrazavi.tamim.repository.UserRepository;
@@ -13,27 +13,27 @@ import java.util.List;
  * Created by Mehdi on 2/1/2018.
  */
 
-@RestController("/api")
+@RestController
 public class UserRestController {
 
     @Autowired
     private UserRepository userRepository;
 
     // Get All user
-    @GetMapping("/users")
+    @GetMapping("/api/users")
     public ResponseEntity<List<UserEntity>> list() {
         return ResponseEntity.ok().body(userRepository.findAll());
     }
 
     // Create a new User
-    @PostMapping("/users")
+    @PostMapping("/api/users")
     public ResponseEntity<?> save(@Valid @RequestBody UserEntity user) {
         UserEntity saved = userRepository.save(user);
         return ResponseEntity.ok().body("New User has been saved with ID:" + saved.getId());
     }
 
     // Get a Single User
-    @GetMapping("/users/{id}")
+    @GetMapping("/api/users/{id}")
     public ResponseEntity<UserEntity> get(@PathVariable(value = "id") Long userId) {
         UserEntity user = userRepository.findOne(userId);
         if (user == null) {
@@ -43,7 +43,7 @@ public class UserRestController {
     }
 
     // Update a User
-    @PutMapping("/users/{id}")
+    @PutMapping("/api/users/{id}")
     public ResponseEntity<?> update(@PathVariable(value = "id") Long userId,
                                     @Valid @RequestBody UserEntity user) {
         UserEntity oldUser = userRepository.findOne(userId);
@@ -56,7 +56,7 @@ public class UserRestController {
     }
 
     // Delete a User
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/api/users/{id}")
     public ResponseEntity<?> deleteUser(@PathVariable(value = "id") Long userId) {
         UserEntity user = userRepository.findOne(userId);
         if (user == null) {
