@@ -3,6 +3,7 @@ package com.msrazavi.tamim.model;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.data.annotation.Transient;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -44,6 +45,7 @@ public class UserEntity {
         this.username = username;
     }
 
+    @Transient
     @NotNull
     @Length(min = 5)
     @Column(name = "PASSWORD")
